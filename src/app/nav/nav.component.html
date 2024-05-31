@@ -1,0 +1,15 @@
+<nav *ngIf="isAuthenticated">
+    <div class="logo">
+        <!-- Aquí puedes colocar tu logo como una imagen o texto -->
+        <img src="assets/imagenes/logo.png" alt="Logo" class="logo-img"> <!-- Ejemplo con imagen -->
+        <!-- <span class="logo-text">UniSys</span> --> <!-- Ejemplo con texto -->
+    </div>
+    <ul>
+        <li *ngIf="!isAuthenticated"><a routerLink="/login">Phegon Dev</a></li>
+        <li *ngIf="isAuthenticated"><a routerLink="/profile">Profile</a></li>
+        <li *ngIf="isAdmin"><a routerLink="/users">Usuarios</a></li>
+        <li *ngIf="isAdmin"><a routerLink="/roles">Roles</a></li>
+        <li *ngIf="!isAuthenticated"><a routerLink="/login">Login</a></li>
+        <li *ngIf="isAuthenticated"><a routerLink="" (click)="logout()">Logout</a></li>
+    </ul>
+</nav>

@@ -1,0 +1,80 @@
+
+.link-button {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    }
+    
+    nav {
+    background-color: #f5eee9;
+    padding: 5px 0;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    }
+
+    nav {
+        background-color: #f5eee9;
+        padding: 15px;
+        font-size: 15px;
+        font-weight: 600;
+        display: flex; /* Utilizamos flexbox para alinear elementos */
+        justify-content: space-between; /* Alinea los elementos a los extremos */
+        align-items: center; /* Centra verticalmente los elementos */
+    }
+    
+    .logo {
+        display: flex; /* Utilizamos flexbox para alinear elementos */
+        align-items: center; /* Centra verticalmente los elementos */
+    }
+    
+    .logo-img {
+        height: 30px; /* Ajusta la altura de tu imagen de logo según sea necesario */
+        width: auto; /* Ajusta el ancho automáticamente según la altura */
+        margin-right: 10px; /* Espacio entre el logo y los enlaces */
+    }
+    
+    .logo-text {
+        font-family: 'Arial', sans-serif; /* Puedes cambiar la fuente según tus preferencias */
+        font-size: 18px; /* Tamaño del texto */
+        font-weight: bold; /* Peso del texto */
+    }
+    
+    
+    ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    }
+    
+    li {
+    display: inline-block;
+    margin: 0 10px;
+    }
+    
+    a {
+    color: #000000;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    }
+    
+    a:hover {
+    background-color: #c08f66;
+    }
+    
+    @media only screen and (max-width: 600px) {
+    nav {
+    padding: 5px 0;
+    }
+    
+    li {
+    display: block;
+    margin: 10px 0;
+    }
+    }
+    
