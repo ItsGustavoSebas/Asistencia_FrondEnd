@@ -45,7 +45,7 @@ export class UserslistComponent implements OnInit {
   
 
   async deleteUser(userId: string) {
-    const confirmDelete = confirm('Are you sure you want to delete this user?');
+    const confirmDelete = confirm('¿Estás seguro que deseas eliminar este usuario?');
     if (confirmDelete) {
       try {
         const token: any = localStorage.getItem('token');

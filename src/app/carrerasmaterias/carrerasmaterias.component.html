@@ -1,0 +1,14 @@
+<div class="container mx-auto p-4">
+    <div *ngIf="errorMessage" class="text-red-500 text-center mb-4">{{ errorMessage }}</div>
+  
+    <div *ngFor="let semestre of semestres" class="mb-6">
+      <h2 class="text-xl font-bold mb-2">Semestre {{ semestre.semestre }}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div *ngFor="let materia of semestre.materias" class="p-4 border rounded shadow-sm bg-white">
+          <h3 class="text-lg font-semibold">{{ materia.materia.name }}</h3>
+          <p class="text-sm text-gray-600">{{ materia.materia.sigla }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

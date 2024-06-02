@@ -61,10 +61,11 @@
                                                     (change)="toggleRoleSelection(rol.id, $event)" />
                                                 <label for="rol{{ rol.id }}" class="ml-2">{{ rol.name }}</label>
                                             </div>
-                                            <span class="text-red-500" *ngIf="rolesError">Ingresar al menos un Rol</span>
+                                            <span class="text-red-500" *ngIf="selectedRoles.size === 0">Debe seleccionar al menos un rol</span>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="text-red-500" *ngIf="errorMessage">{{ errorMessage }}</div>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,46 @@
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+        <h2 class="text-xl font-semibold text-gray-800">Lista de Carreras</h2>
+        <button routerLink="/carreras/create" class="bg-red-500 text-white px-4 py-2 rounded-lg">
+             CREAR CARRERA
+        </button>
+    </div>
+
+    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-md">
+        <table class="w-full bg-white text-sm text-left text-gray-500">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-4 font-medium uppercase text-gray-900">ID</th>
+                    <th class="px-6 py-4 font-medium uppercase text-gray-900">Nombre</th>
+                    <th class="px-6 py-4 font-medium uppercase text-gray-900">Facultad</th>
+                    <th class="px-6 py-4 font-medium uppercase text-gray-900">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                <tr *ngFor="let carrera of carreras">
+                    <td class="px-6 py-4">{{ carrera.id }}</td>
+                    <td class="px-6 py-4">{{ carrera.name }}</td>
+                    <td class="px-6 py-4">{{ carrera.facultad.name }}</td>
+                    <td class="px-6 py-4">
+                        <div class="flex space-x-2">
+                            <button class="text-blue-600 hover:text-blue-900" (click)="navigateToUpdate(carrera.id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                                </svg>
+                            </button>
+                            <button class="text-red-600 hover:text-red-900" (click)="deleteCarrera(carrera.id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6" x-tooltip="tooltip">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                </svg>
+                            </button>
+                            <button class="text-blue-600 hover:text-blue-900" (click)="navigateToMalla(carrera.id)">
+                                <svg fill="#053105" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewBox="0 0 1.565 1.28" xml:space="preserve"><path d="M1.529 0 0.82 0.233v1.046L1.529 1.046a0.037 0.037 0 0 0 0.037 -0.036V0.036A0.036 0.036 0 0 0 1.529 0m-0.111 0.708a0.036 0.036 0 0 1 -0.037 0.036L0.994 0.868A0.037 0.037 0 0 1 0.957 0.831V0.461C0.957 0.441 0.974 0.425 0.994 0.425l0.386 -0.123c0.021 0 0.037 0.017 0.037 0.037zM0.037 0A0.037 0.037 0 0 0 0 0.036v0.972C0 1.029 0.017 1.045 0.037 1.045l0.71 0.233v-1.045zm0.564 0.879a0.037 0.037 0 0 1 -0.046 0.024L0.149 0.781A0.037 0.037 0 1 1 0.169 0.711l0.407 0.123A0.037 0.037 0 0 1 0.601 0.88m0 -0.149a0.037 0.037 0 0 1 -0.046 0.024L0.147 0.632A0.037 0.037 0 0 1 0.168 0.562l0.407 0.123a0.036 0.036 0 0 1 0.024 0.046m0 -0.149a0.036 0.036 0 0 1 -0.046 0.024L0.149 0.484A0.036 0.036 0 0 1 0.124 0.438 0.037 0.037 0 0 1 0.171 0.414l0.407 0.123A0.036 0.036 0 0 1 0.602 0.583m0 -0.149a0.037 0.037 0 0 1 -0.046 0.024L0.149 0.337A0.037 0.037 0 1 1 0.169 0.266l0.407 0.123a0.036 0.036 0 0 1 0.024 0.046"/></svg></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="errorMessage" class="mt-4 text-red-600">{{ errorMessage }}</div>
+</div>

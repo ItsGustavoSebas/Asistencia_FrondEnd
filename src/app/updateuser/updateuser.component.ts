@@ -67,6 +67,10 @@ export class UpdateuserComponent implements OnInit {
   }
 
   async updateUser() {
+    if (!this.userData.name || !this.userData.email || !this.userData.cargoId) {
+      this.showError('Por favor completa todos los campos requridos.');
+      return;
+    }
     const confirmUpdate = confirm('¿Estás seguro de que quieres actualizar este usuario?');
     if (!confirmUpdate) return;
 

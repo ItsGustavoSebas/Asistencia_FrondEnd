@@ -178,6 +178,114 @@ export class UsersService {
     }
   }
 
+  async getAllCarreras(token: string): Promise<any> {
+    const url = `${this.BASE_URL}/adminuser/carreras`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las carreras: ${error}`);
+    }
+  }
+
+  async deleteCarrera(carreraId: string, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/carreras/delete/${carreraId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.delete<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async updateCarrera(carreraId: string, carreraData: any, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/carreras/update/${carreraId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    try{
+      const response =  this.http.put<any>(url, carreraData, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async getCarrerasById(carreraId: string, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/carreras/${carreraId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.get<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async getAllFacultades(token: string): Promise<any> {
+    const url = `${this.BASE_URL}/adminuser/facultades`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las facultades: ${error}`);
+    }
+  }
+
+  async getAllMaterias(token: string): Promise<any> {
+    const url = `${this.BASE_URL}/adminuser/materias`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las materias: ${error}`);
+    }
+  }
+
+  async createCarrera(carreraData:any, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/carreras/crear`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.post<any>(url, carreraData, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async getAllCarrera_Materias(carreraId: string,token: string): Promise<any> {
+    const url = `${this.BASE_URL}/adminuser/carreras/materias/${carreraId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las materias: ${error}`);
+    }
+  }
+
   /***AUTHENTICATION METHODS */
   logOut(): void {
     localStorage.removeItem('token');
