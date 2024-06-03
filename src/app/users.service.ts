@@ -211,7 +211,7 @@ export class UsersService {
       'Authorization': `Bearer ${token}`
     });
     try{
-      const response =  this.http.put<any>(url, carreraData, {headers}).toPromise()
+      const response =  this.http.post<any>(url, carreraData, {headers}).toPromise()
       return response;
     }catch(error){
       throw error;
@@ -285,6 +285,126 @@ export class UsersService {
       throw new Error(`Error al obtener las materias: ${error}`);
     }
   }
+
+  async createMateria(materiaData:any, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/materias/crear`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.post<any>(url, materiaData, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async deletemateria(materiaId: string, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/materias/delete/${materiaId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.delete<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async updatemateria(materiaId: string, materiaData: any, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/materias/update/${materiaId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    try{
+      const response =  this.http.post<any>(url, materiaData, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async getmateriasById(materiaId: string, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/materias/${materiaId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.get<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async createModulo(moduloData:any, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/modulos/crear`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.post<any>(url, moduloData, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async getAllmodulos(token: string): Promise<any> {
+    const url = `${this.BASE_URL}/adminuser/modulos`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las modulos: ${error}`);
+    }
+  }
+
+  async deletemodulo(moduloId: string, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/modulos/delete/${moduloId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.delete<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async updatemodulo(moduloId: string, moduloData: any, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/modulos/update/${moduloId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    try{
+      const response =  this.http.post<any>(url, moduloData, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async getmodulosById(moduloId: string, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/modulos/${moduloId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.get<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+
 
   /***AUTHENTICATION METHODS */
   logOut(): void {

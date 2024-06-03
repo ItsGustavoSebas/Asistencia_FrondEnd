@@ -21,14 +21,21 @@
   
                   <div>
                     <label for="facultad">Facultad</label>
-                    <select name="facultad" [(ngModel)]="carreraData.facultad"
-                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required>
-                      <option value="">Seleccionar facultad</option>
-                      <option *ngFor="let facultad of facultades" [value]="facultad">
-                        {{ facultad.name }}
-                      </option>
+                    <select
+                        name="facultad"
+                        [(ngModel)]="carreraData.facultad.id"
+                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                        required
+                    >
+                        <option value="">Seleccionar facultad</option>
+                        <option
+                            *ngFor="let facultad of facultades"
+                            [value]="facultad.id"
+                        >
+                            {{ facultad.name }}
+                        </option>
                     </select>
-                  </div>
+                </div>
   
                   <div *ngFor="let semestre of semestres; let i = index" class="mt-4">
                     <h3>Semestre {{ i + 1 }}</h3>

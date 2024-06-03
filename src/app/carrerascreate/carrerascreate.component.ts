@@ -15,7 +15,7 @@ interface Semestre {
 
 interface CarreraData {
   name: string;
-  facultadId: any; // Define un tipo más específico si tienes uno
+  facultadId: any; 
   semestres: Semestre[];
 }
 
@@ -31,7 +31,7 @@ export class CarrerascreateComponent implements OnInit {
     name: '',
     facultadId: '',
     semestres: [
-      { materias: [{ materia: null }] } // Inicialmente un semestre con una materia
+      { materias: [{ materia: null }] } 
     ]
   };
   errorMessage: string = '';
@@ -91,7 +91,7 @@ export class CarrerascreateComponent implements OnInit {
       if (!token) {
         throw new Error('No token found');
       }
-
+      console.log(this.formData.semestres)
       const materias = this.formData.semestres
         .flatMap((semestre, index) =>
           semestre.materias

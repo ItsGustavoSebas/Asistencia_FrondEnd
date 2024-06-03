@@ -63,14 +63,12 @@ export class RegisterComponent implements OnInit {
   }
 
   async handleSubmit() {
-    // Check if all required fields are filled
     if (!this.formData.name || !this.formData.email || !this.formData.password || !this.formData.cargoId) {
       this.showError('Por favor completa todos los campos.');
       return;
     }
 
-    // Confirm registration with the user
-    const confirmRegistration = confirm('Are you sure you want to register this user?');
+    const confirmRegistration = confirm('Estas seguro que deseas registrar este usuario?');
     if (!confirmRegistration) return;
 
     try {
@@ -79,7 +77,6 @@ export class RegisterComponent implements OnInit {
         throw new Error('No token found');
       }
 
-      // Get the selected roles as a list of role names
       const selectedRoleNames = this.roles
         .filter(role => this.selectedRoles.has(role.id))
         .map(role => role.name);
