@@ -26,4 +26,13 @@
     background-color: #38c172;
     color: white;
   }
+  button {
+    &.active {
+      --tw-bg-opacity: 1;
+    background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+      --tw-text-opacity: 1;
+      color: rgb(75 85 99 / var(--tw-text-opacity));
+    }
+  }
+  
   

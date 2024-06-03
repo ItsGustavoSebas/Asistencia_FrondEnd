@@ -32,14 +32,19 @@
                   <div *ngFor="let semestre of formData.semestres; let i = index" class="mt-4">
                     <h3>Semestre {{ i + 1 }}</h3>
                     <div *ngFor="let materia of semestre.materias; let j = index" class="flex items-center">
-                      <select [(ngModel)]="materia.materia" [ngModelOptions]="{standalone: true}"
-                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 mr-2">
-                        <option value="">Seleccionar materia</option>
-                        <option *ngFor="let m of materias" [value]="m.id">{{ m.name }}</option>
-                      </select>
+                      <input [(ngModel)]="materia.materiaName" [ngModelOptions]="{standalone: true}"
+                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 mr-2"
+                        list="materias-list" placeholder="Seleccionar materia"
+                        (ngModelChange)="updateMateriaId(i, j, $event)">
+                    
+                      <datalist id="materias-list">
+                        <option *ngFor="let m of materias" [value]="m.name"></option>
+                      </datalist>
+                    
                       <button type="button" (click)="removeMateria(i, j)"
                         class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">-</button>
                     </div>
+                    
                     <button type="button" (click)="addMateria(i)"
                       class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded mt-2">+ Añadir Materia</button>
                   </div>

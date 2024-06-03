@@ -44,7 +44,7 @@ export class MateriaslistComponent {
   showError(message: string) {
     this.errorMessage = message;
     setTimeout(() => {
-      this.errorMessage = ''; // Clear the error message after the specified duration
+      this.errorMessage = '';
     }, 3000);
   }
 

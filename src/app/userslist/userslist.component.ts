@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { UsersService } from '../users.service';
-
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-userslist',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './userslist.component.html',
   styleUrl: './userslist.component.css'
 })
@@ -23,6 +23,13 @@ export class UserslistComponent implements OnInit {
   ) {}
   isAdmin:boolean = false;
   isUser:boolean = false;
+  filterRole: string = 'all';
+  searchName: string = '';
+  activeButton: string = 'all';
+
+  setActiveButton(role: string) {
+    this.activeButton = role;
+  }
   
   ngOnInit(): void {
     this.loadUsers();
@@ -31,11 +38,21 @@ export class UserslistComponent implements OnInit {
   async loadUsers() {
     try {
       const token: any = localStorage.getItem('token');
-      const response = await this.userService.getAllUsers(token);
+      let response;
+      if (this.filterRole === 'all' && !this.searchName) {
+        response = await this.userService.getAllUsers(token);
+      } else if (this.filterRole !== 'all' && !this.searchName) {
+        response = await this.userService.getUsersByRole(this.filterRole, token);
+      } else if (this.filterRole === 'all' && this.searchName) {
+        response = await this.userService.searchUsersByName(this.searchName, token);
+      } else {
+        response = await this.userService.getUsersByRoleAndName(this.filterRole, this.searchName, token);
+      }
+      
       if (response && response.statusCode === 200 && response.ourUsersList) {
         this.users = response.ourUsersList;
       } else {
-        this.showError('No users found.');
+        this.showError('No se encontraron usuarios');
       }
     } catch (error: any) {
       this.showError(error.message);
@@ -68,6 +85,16 @@ export class UserslistComponent implements OnInit {
     }, 3000);
   }
   getRoleNames(user: any): string {
-    return user.roles.map((role: any) => role.name).join(', ');
+    return user.roles.map((role: any) => {
+      switch (role.name) {
+        case 'ADMIN':
+          return 'Administrador';
+        case 'USER':
+          return 'Docente';
+        default:
+          return role.name;
+      }
+    }).join(', ');
   }
+  
 }

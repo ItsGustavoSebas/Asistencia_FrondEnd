@@ -42,6 +42,45 @@ export class UsersService {
     }
   }
 
+  async getUsersByRole(role: string, token: string):Promise<any>{
+    const url = `${this.BASE_URL}/admin/get-users-roles/${role}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.get<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async searchUsersByName(name: string, token: string):Promise<any>{
+    const url = `${this.BASE_URL}/admin/get-users-names?name=${name}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.get<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async getUsersByRoleAndName(role: string, name: string, token: string):Promise<any>{
+    const url = `${this.BASE_URL}/admin/get-users-roles-names?role=${role}&name=${name}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.get<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
   async getAllUsers(token:string):Promise<any>{
     const url = `${this.BASE_URL}/admin/get-all-users`;
     const headers = new HttpHeaders({

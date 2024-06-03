@@ -161,16 +161,21 @@ export class ModulosupdateComponent implements OnInit {
     let start = null;
     let end = null;
     for (let i = 0; i < aulas.length; i++) {
-      if (start === null) {
-        start = aulas[i].name.split(' ')[1]; 
-      }
-      if (i === aulas.length - 1 || +aulas[i + 1].name.split(' ')[1] !== +aulas[i].name.split(' ')[1] + 1) {
-        end = aulas[i].name.split(' ')[1]; 
-        formattedAulas.push(`${start}-${end}`);
-        start = null;
-        end = null;
-      }
+        if (start === null) {
+            start = aulas[i].name.split(' ')[1];
+        }
+        if (i === aulas.length - 1 || +aulas[i + 1].name.split(' ')[1] !== +aulas[i].name.split(' ')[1] + 1) {
+            end = aulas[i].name.split(' ')[1];
+            if (start === end) {
+                formattedAulas.push(`${start}`);
+            } else {
+                formattedAulas.push(`${start}-${end}`);
+            }
+            start = null;
+            end = null;
+        }
     }
     return formattedAulas.join(', ');
-  }
+}
+
 }

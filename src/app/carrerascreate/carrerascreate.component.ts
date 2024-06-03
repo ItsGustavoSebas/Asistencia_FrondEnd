@@ -10,7 +10,7 @@ interface Materia {
 }
 
 interface Semestre {
-  materias: { materia: Materia | null }[];
+  materias: { materia: Materia | null, materiaName: string }[];
 }
 
 interface CarreraData {
@@ -31,7 +31,7 @@ export class CarrerascreateComponent implements OnInit {
     name: '',
     facultadId: '',
     semestres: [
-      { materias: [{ materia: null }] } 
+      { materias: [{ materia: null, materiaName: '' }] } 
     ]
   };
   errorMessage: string = '';
@@ -63,17 +63,26 @@ export class CarrerascreateComponent implements OnInit {
   }
 
   addSemestre() {
-    this.formData.semestres.push({ materias: [{ materia: null }] });
+    this.formData.semestres.push({ materias: [{ materia: null, materiaName: '' }] });
   }
 
   addMateria(semestreIndex: number) {
-    this.formData.semestres[semestreIndex].materias.push({ materia: null });
+    this.formData.semestres[semestreIndex].materias.push({ materia: null, materiaName: '' });
   }
 
   removeMateria(semestreIndex: number, materiaIndex: number) {
     this.formData.semestres[semestreIndex].materias.splice(materiaIndex, 1);
     if (this.formData.semestres[semestreIndex].materias.length === 0) {
       this.formData.semestres.splice(semestreIndex, 1);
+    }
+  }
+
+  updateMateriaId(semestreIndex: number, materiaIndex: number, materiaName: string) {
+    const materia = this.materias.find(m => m.name === materiaName);
+    if (materia) {
+      this.formData.semestres[semestreIndex].materias[materiaIndex].materia = materia;
+    } else {
+      this.formData.semestres[semestreIndex].materias[materiaIndex].materia = null;
     }
   }
 
@@ -91,14 +100,14 @@ export class CarrerascreateComponent implements OnInit {
       if (!token) {
         throw new Error('No token found');
       }
-      console.log(this.formData.semestres)
+      console.log(this.formData.semestres);
       const materias = this.formData.semestres
         .flatMap((semestre, index) =>
           semestre.materias
             .filter(materia => materia.materia) 
-            .map(materia => ({ materiaId: materia.materia, semestre: index + 1 }))
+            .map(materia => ({ materiaId: materia.materia!.id, semestre: index + 1 }))
         );
-      
+
       const newCarreraData = {
         name: this.formData.name,
         facultad: {
