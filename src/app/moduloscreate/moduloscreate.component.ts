@@ -17,7 +17,6 @@ declare var google: any;
 export class ModuloscreateComponent implements OnInit {
   formData: any = {
     name: '',
-    aulas: '',
     facultad: '',
     latitud: '',
     longitud: ''
@@ -82,7 +81,7 @@ export class ModuloscreateComponent implements OnInit {
 
   async handleSubmit() {
     console.log(this.formData)
-    if (!this.formData.name || !this.formData.aulas || !this.formData.facultad || !this.formData.latitud || !this.formData.longitud) {
+    if (!this.formData.name || !this.formData.facultad || !this.formData.latitud || !this.formData.longitud) {
       this.showError('Por favor completa todos los campos.');
       return;
     }
@@ -95,21 +94,12 @@ export class ModuloscreateComponent implements OnInit {
       if (!token) {
         throw new Error('No token found');
       }
-      const aulas = this.formData.aulas.split(',').map((item: string) => {
-        item = item.trim();
-        if (item.includes('-')) {
-          const [start, end] = item.split('-').map(num => +num.trim());
-          return Array.from({ length: end - start + 1 }, (_, i) => `Aula ${start + i}`);
-        } else {
-          return `Aula ${item}`;
-        }
-      }).flat();
+      
       const newModuloData = {
         name: this.formData.name,
         facultad: {
           id: this.formData.facultad,
         },
-        aulaNames: aulas,
         latitud: this.formData.latitud,
         longitud: this.formData.longitud,
       };

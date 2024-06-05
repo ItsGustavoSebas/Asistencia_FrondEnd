@@ -2,17 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { UsersService } from '../users.service';
 import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-carreraslist',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './carreraslist.component.html',
   styleUrl: './carreraslist.component.css'
 })
 export class CarreraslistComponent {
   carreras: any[] = [];
-  errorMessage: string = ''
+  errorMessage: string = '';
+  searchName: string = '';
   constructor(
     public readonly userService: UsersService,
     private readonly router: Router,
@@ -25,9 +27,14 @@ export class CarreraslistComponent {
   async loadcarreras() {
     try {
       const token: any = localStorage.getItem('token');
-      const response = await this.userService.getAllCarreras(token);
+      let response;
+      if (this.searchName){
+        response = await this.userService.searchCarrerasByName(this.searchName, token);
+      }else{
+        response = await this.userService.getAllCarreras(token);
+      }
       if (response) {
-        this.carreras = response;
+        this.carreras = response.carreraList;
       } else {
         this.showError('No carreras found.');
       }

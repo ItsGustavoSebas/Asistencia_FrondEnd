@@ -14,7 +14,6 @@ declare var google: any;
   styleUrls: ['./modulosupdate.component.css']
 })
 export class ModulosupdateComponent implements OnInit {
-  @ViewChild('aulasInput') aulasInput!: ElementRef;
   moduloData: any = {};
   errorMessage: string = '';
   facultades: any[] = [];
@@ -57,8 +56,8 @@ export class ModulosupdateComponent implements OnInit {
 
     try {
       let moduloDataResponse = await this.userService.getmodulosById(this.moduloId, token);
-      const { name, latitud, longitud, facultad, aulas } = moduloDataResponse;
-      this.moduloData = { name, latitud, longitud, facultad, aulas };
+      const { name, latitud, longitud, facultad } = moduloDataResponse;
+      this.moduloData = { name, latitud, longitud, facultad };
       this.initMap(this.moduloData.latitud, this.moduloData.longitud);
     } catch (error: any) {
       this.showError(error.message);
@@ -101,7 +100,6 @@ export class ModulosupdateComponent implements OnInit {
 
   async updateModulo() {
     console.log(this.moduloData)
-    console.log(this.aulasInput.nativeElement.value)
     if (!this.moduloData.name) {
       this.showError('Por favor completa todos los campos requeridos.');
       return;
@@ -115,22 +113,12 @@ export class ModulosupdateComponent implements OnInit {
         throw new Error('Token not found');
       }
 
-      const aulas = this.aulasInput.nativeElement.value.split(',').map((item: string) => {
-        item = item.trim();
-        if (item.includes('-')) {
-          const [start, end] = item.split('-').map(num => +num.trim());
-          return Array.from({ length: end - start + 1 }, (_, i) => `Aula ${start + i}`);
-        } else {
-          return `Aula ${item}`;
-        }
-      }).flat();
       
       const newModuloData = {
         name: this.moduloData.name,
         facultad: {
           id: this.moduloData.facultad.id,
         },
-        aulaNames: aulas,
         latitud: this.moduloData.latitud,
         longitud: this.moduloData.longitud,
       };

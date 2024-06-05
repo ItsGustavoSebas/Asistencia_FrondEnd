@@ -56,7 +56,8 @@ export class CarrerascreateComponent implements OnInit {
 
     try {
       this.facultades = await this.userService.getAllFacultades(token);
-      this.materias = await this.userService.getAllMaterias(token);
+      const response = await this.userService.getAllMaterias(token);
+      this.materias = response.materiaList;
     } catch (error: any) {
       this.showError(error.message);
     }
@@ -100,7 +101,7 @@ export class CarrerascreateComponent implements OnInit {
       if (!token) {
         throw new Error('No token found');
       }
-      console.log(this.formData.semestres);
+      console.log("semestre", this.formData.semestres);
       const materias = this.formData.semestres
         .flatMap((semestre, index) =>
           semestre.materias

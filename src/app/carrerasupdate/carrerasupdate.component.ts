@@ -46,7 +46,8 @@ export class CarrerasupdateComponent implements OnInit {
     try {
       let carreraDataResponse = await this.userService.getCarrerasById(this.carreraId, token);
       this.facultades = await this.userService.getAllFacultades(token);
-      this.materias = await this.userService.getAllMaterias(token);
+      const response = await this.userService.getAllMaterias(token);
+      this.materias = response.materiaList;
       
       this.carrera_materias = await this.userService.getAllCarrera_Materias(this.carreraId, token);
       if (this.carrera_materias) {

@@ -443,7 +443,44 @@ export class UsersService {
     }
   }
 
+  async searchMateriasByName(name: string, token: string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/materias/get-materias-names?name=${name}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.get<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
 
+  async searchCarrerasByName(name: string, token: string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/carreras/get-carreras-names?name=${name}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.get<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async searchModulosByName(name: string, token: string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/modulos/get-modulos-names?name=${name}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.get<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
 
   /***AUTHENTICATION METHODS */
   logOut(): void {

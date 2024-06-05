@@ -2,17 +2,19 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { UsersService } from '../users.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-materiaslist',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './materiaslist.component.html',
   styleUrl: './materiaslist.component.css'
 })
 export class MateriaslistComponent {
   materias: any[] = [];
-  errorMessage: string = ''
+  errorMessage: string = '';
+  searchName: string = '';
   constructor(
     public readonly userService: UsersService,
     private readonly router: Router,
@@ -25,9 +27,14 @@ export class MateriaslistComponent {
   async loadmaterias() {
     try {
       const token: any = localStorage.getItem('token');
-      const response = await this.userService.getAllMaterias(token);
+      let response;
+      if (this.searchName){
+        response = await this.userService.searchMateriasByName(this.searchName, token);
+      }else{
+        response = await this.userService.getAllMaterias(token);
+      }
       if (response) {
-        this.materias = response;
+        this.materias = response.materiaList;
       } else {
         this.showError('No materias found.');
       }
