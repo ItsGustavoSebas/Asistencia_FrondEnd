@@ -8,6 +8,9 @@ import { usersGuard, adminGuard } from './users.guard';
 import { RoleslistComponent } from './roleslist/roleslist.component';
 import { UpdatedroleComponent } from './updatedrole/updatedrole.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { FacultadeslistComponent } from './facultadeslist/facultadeslist.component';
+import { FacultadescreateComponent } from './facultadescreate/facultadescreate.component';
+import { FacultadesupdateComponent } from './facultadesupdate/facultadesupdate.component';
 import { CarreraslistComponent } from './carreraslist/carreraslist.component';
 import { CarrerasupdateComponent } from './carrerasupdate/carrerasupdate.component';
 import { CarrerasmateriasComponent } from './carrerasmaterias/carrerasmaterias.component';
@@ -29,6 +32,9 @@ export const routes: Routes = [
     { path: 'users', component: UserslistComponent, canActivate: [adminGuard] },
     { path: 'roles', component: RoleslistComponent, canActivate: [adminGuard] },
     { path: 'roles/update/:id', component: UpdatedroleComponent, canActivate: [adminGuard] },
+    { path: 'facultades', component: FacultadeslistComponent, canActivate: [usersGuard] },
+    { path: 'facultades/update/:id', component: FacultadesupdateComponent, canActivate: [adminGuard] },
+    { path: 'facultades/create', component: FacultadescreateComponent, canActivate: [adminGuard] },
     { path: 'carreras', component: CarreraslistComponent, canActivate: [usersGuard] },
     { path: 'carreras/update/:id', component: CarrerasupdateComponent, canActivate: [adminGuard] },
     { path: 'carreras/create', component: CarrerascreateComponent, canActivate: [adminGuard] },
