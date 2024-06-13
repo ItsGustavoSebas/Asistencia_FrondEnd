@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { UsersService } from '../users.service';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-carreraslist',
@@ -18,10 +19,32 @@ export class CarreraslistComponent {
   constructor(
     public readonly userService: UsersService,
     private readonly router: Router,
+    private readonly toastr: ToastrService,
   ) {}
   
   ngOnInit(): void {
     this.loadcarreras();
+    this.checkForNotifications();
+  }
+
+  checkForNotifications() {
+    const carreraCreated = localStorage.getItem('carreraCreated');
+    if (carreraCreated) {
+      this.toastr.success('Carrera creada correctamente');
+      localStorage.removeItem('carreraCreated');
+    }
+
+    const carreraDeleted = localStorage.getItem('carreraDeleted');
+    if (carreraDeleted) {
+      this.toastr.success('Carrera eliminada correctamente');
+      localStorage.removeItem('carreraDeleted');
+    }
+
+    const carreraUpdated = localStorage.getItem('carreraUpdated');
+    if (carreraUpdated) {
+      this.toastr.success('Carrera actualizada correctamente');
+      localStorage.removeItem('carreraUpdated');
+    }
   }
 
   async loadcarreras() {
@@ -65,7 +88,9 @@ export class CarreraslistComponent {
       try {
         const token: any = localStorage.getItem('token');
         await this.userService.deleteCarrera(carreraId, token);
+        localStorage.setItem('carreraDeleted', 'true');
         this.loadcarreras();
+        this.checkForNotifications();
       } catch (error: any) {
         this.showError(error.message);
       }

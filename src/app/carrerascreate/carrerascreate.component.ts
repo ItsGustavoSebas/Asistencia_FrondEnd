@@ -123,6 +123,7 @@ export class CarrerascreateComponent implements OnInit {
       console.log('Registration Response:', response);
 
       if (response.statusCode === 200) {
+        localStorage.setItem('carreraCreated', 'true');
         this.router.navigate(['/carreras']);
       } else {
         this.showError(response.message);

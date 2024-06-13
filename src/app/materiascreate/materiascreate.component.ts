@@ -50,6 +50,7 @@ export class MateriascreateComponent {
       console.log('Registration Response:', response);
 
       if (response.statusCode === 200) {
+        localStorage.setItem('materiaCreated', 'true');
         this.router.navigate(['/materias']);
       } else {
         this.showError(response.message);

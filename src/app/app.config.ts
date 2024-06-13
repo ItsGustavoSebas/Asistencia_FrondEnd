@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { GoogleMapsModule } from '@angular/google-maps';
@@ -6,8 +6,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import mapboxgl from 'mapbox-gl';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +19,14 @@ export const appConfig: ApplicationConfig = {
     GoogleMapsModule,
     MatAutocompleteModule,
     MatInputModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    BrowserAnimationsModule, // Añade esto
+    importProvidersFrom(ToastrModule.forRoot({
+      timeOut: 3000, // 15 seconds
+    closeButton: true,
+    progressBar: true,
+    })),
   ]
 };
 

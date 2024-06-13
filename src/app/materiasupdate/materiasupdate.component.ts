@@ -67,6 +67,7 @@ export class MateriasupdateComponent {
       console.log(res);
 
       if (res.statusCode === 200) {
+        localStorage.setItem('materiaUpdated', 'true');
         this.router.navigate(['/materias']);
       } else {
         this.showError(res.message);

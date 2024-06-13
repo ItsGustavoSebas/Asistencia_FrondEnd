@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { UsersService } from '../users.service';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-moduloslist',
@@ -18,10 +19,32 @@ export class ModuloslistComponent {
   constructor(
     public readonly userService: UsersService,
     private readonly router: Router,
+    private readonly toastr: ToastrService
   ) {}
   
   ngOnInit(): void {
     this.loadmodulos();
+    this.checkForNotifications();
+  }
+
+  checkForNotifications() {
+    const moduloCreated = localStorage.getItem('moduloCreated');
+    if (moduloCreated) {
+      this.toastr.success('modulo creado correctamente');
+      localStorage.removeItem('moduloCreated');
+    }
+
+    const moduloDeleted = localStorage.getItem('moduloDeleted');
+    if (moduloDeleted) {
+      this.toastr.success('modulo eliminado correctamente');
+      localStorage.removeItem('moduloDeleted');
+    }
+
+    const moduloUpdated = localStorage.getItem('moduloUpdated');
+    if (moduloUpdated) {
+      this.toastr.success('modulo actualizado correctamente');
+      localStorage.removeItem('moduloUpdated');
+    }
   }
 
   async loadmodulos() {
@@ -62,6 +85,8 @@ export class ModuloslistComponent {
         const token: any = localStorage.getItem('token');
         await this.userService.deletemodulo(moduloId, token);
         this.loadmodulos();
+        localStorage.setItem('moduloDeleted', 'true');
+        this.checkForNotifications();
       } catch (error: any) {
         this.showError(error.message);
       }

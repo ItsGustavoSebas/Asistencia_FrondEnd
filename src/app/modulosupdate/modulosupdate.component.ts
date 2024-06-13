@@ -128,6 +128,7 @@ export class ModulosupdateComponent implements OnInit {
       console.log(res);
 
       if (res.statusCode === 200) {
+        localStorage.setItem('moduloUpdated', 'true');
         this.router.navigate(['/modulos']);
       } else {
         this.showError(res.message);

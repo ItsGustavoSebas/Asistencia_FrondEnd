@@ -92,6 +92,7 @@ export class CarrerasupdateComponent implements OnInit {
       console.log(res);
 
       if (res.statusCode === 200) {
+        localStorage.setItem('carreraUpdated', 'true');
         this.router.navigate(['/carreras']);
       } else {
         this.showError(res.message);

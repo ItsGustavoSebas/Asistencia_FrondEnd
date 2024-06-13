@@ -108,6 +108,7 @@ export class ModuloscreateComponent implements OnInit {
       const response = await this.userService.createModulo(newModuloData, token);
       console.log(response)
       if (response.statusCode === 200) {
+        localStorage.setItem('moduloCreated', 'true');
         this.router.navigate(['/modulos']);
       } else {
         this.showError(response.message);
