@@ -271,7 +271,7 @@ export class UsersService {
   }
 
   async getAllFacultades(token: string): Promise<any> {
-    const url = `${this.BASE_URL}/adminuser/facultades`;
+    const url = `${this.BASE_URL}/adminuser/facultades/f`;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -322,6 +322,71 @@ export class UsersService {
       return response;
     } catch (error) {
       throw new Error(`Error al obtener las materias: ${error}`);
+    }
+  }
+
+  async createFacultad(facultadData:any, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/facultades/crear`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.post<any>(url, facultadData, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async deletefacultad(facultadId: string, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/facultades/delete/${facultadId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.delete<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async updatefacultad(facultadId: string, facultadData: any, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/facultades/update/${facultadId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    try{
+      const response =  this.http.post<any>(url, facultadData, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async getfacultadsById(facultadId: string, token:string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/facultades/${facultadId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.get<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async searchFacultadsByName(name: string, token: string):Promise<any>{
+    const url = `${this.BASE_URL}/adminuser/facultades/get-facultades-names?name=${name}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    try{
+      const response =  this.http.get<any>(url, {headers}).toPromise()
+      return response;
+    }catch(error){
+      throw error;
     }
   }
 
