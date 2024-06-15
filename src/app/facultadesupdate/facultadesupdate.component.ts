@@ -65,7 +65,7 @@ export class FacultadesupdateComponent {
       console.log(res);
 
       if (res.statusCode === 200) {
-        this.router.navigate(['/facultades/f']);
+        this.router.navigate(['/facultades']);
       } else {
         this.showError(res.message);
       }

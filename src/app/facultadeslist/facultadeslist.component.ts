@@ -31,7 +31,7 @@ export class FacultadeslistComponent {
       if (this.searchName){
         response = await this.userService.searchFacultadsByName(this.searchName, token);
       }else{
-        response = await this.userService.getAllFacultades(token);
+        response = await this.userService.getAllFacultades2(token);
       }
       if (response) {
         this.facultades = response.facultadList;
@@ -47,6 +47,12 @@ export class FacultadeslistComponent {
   navigateToUpdate(facultadId: string) {
     this.router.navigate(['/facultades/update', facultadId]);
   }
+
+  navigateToAsistencias(facultadId: string) {
+    this.router.navigate(['facultades/asistencias/reporte', facultadId]);
+  }
+
+  
 
   showError(message: string) {
     this.errorMessage = message;

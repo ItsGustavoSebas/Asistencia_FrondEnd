@@ -1,0 +1,188 @@
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+      <h2 class="text-xl font-semibold text-gray-800">
+        Lista de licencias
+      </h2>
+      <div class="md:flex md:items-center md:justify-between py-4">
+        <div class="flex space-x-4">
+          <input
+            type="date"
+            [(ngModel)]="startDate"
+            class="border rounded px-4 py-2"
+          />
+          <input
+            type="date"
+            [(ngModel)]="endDate"
+            class="border rounded px-4 py-2"
+          />
+          <button
+            (click)="loadlicencias()"
+            class="px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Filtrar
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="md:flex md:items-center md:justify-between py-4">
+      <div
+        class="inline-flex overflow-hidden bg-white border divide-x rounded-lg rtl:flex-row-reverse"
+      >
+        <button
+          (click)="
+            filterEstado = 'all'; setActiveButton('all'); loadlicencias()
+          "
+          [class.active]="activeButton === 'all'"
+          class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"
+        >
+          Mostrar Todo
+        </button>
+        <button
+          (click)="
+            filterEstado = 'Aprobado';
+            setActiveButton('Aprobado');
+            loadlicencias()
+          "
+          [class.active]="activeButton === 'Aprobado'"
+          class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"
+        >
+          Aprobado
+        </button>
+        <button
+          (click)="
+            filterEstado = 'Rechazado';
+            setActiveButton('Rechazado');
+            loadlicencias()
+          "
+          [class.active]="activeButton === 'Rechazado'"
+          class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"
+        >
+          Rechazado
+        </button>
+        <button
+          (click)="
+            filterEstado = 'Pendiente'; setActiveButton('Pendiente'); loadlicencias()
+          "
+          [class.active]="activeButton === 'Pendiente'"
+          class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"
+        >
+          Pendiente
+        </button>
+      </div>
+      <button
+        (click)="showColumnSelection = !showColumnSelection"
+        class="px-4 py-2 bg-gray-500 text-white rounded"
+      >
+        Seleccionar Columnas
+      </button>
+      <button
+        (click)="downloadLicenciaAsExcel()"
+        class="px-4 py-2 bg-green-500 text-white rounded"
+      >
+        Descargar Excel
+      </button>
+      <button
+        (click)="downloadLicenciaAsPDF()"
+        class="px-4 py-2 bg-red-500 text-white rounded"
+      >
+        Descargar PDF
+      </button>
+  
+      <!-- Column Selection Modal -->
+      <div
+        *ngIf="showColumnSelection"
+        class="fixed inset-0 flex items-center justify-center z-50"
+      >
+        <div class="bg-white p-6 rounded shadow-lg">
+          <h3 class="text-lg font-semibold mb-4">Seleccionar Columnas</h3>
+          <div *ngFor="let column of columns">
+            <label>
+              <input type="checkbox" [(ngModel)]="column.selected" />
+              {{ column.displayName }}
+            </label>
+          </div>
+          <button
+            (click)="showColumnSelection = false"
+            class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-md">
+      <table class="w-full bg-white text-sm text-left text-gray-500">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Docente</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Motivo</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Estado</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">
+              Fecha de Inicio
+            </th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">
+                Fecha de Fin
+            </th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">
+                Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr *ngFor="let licencia of licencias">
+            <td class="px-6 py-4">
+              {{ licencia.nombre }}
+            </td>
+            <td class="px-6 py-4">
+              {{ licencia.motivo }}
+            </td>
+            <td class="px-6 py-4">
+                <span
+                  class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold"
+                  [ngClass]="{
+                    'bg-green-50 text-green-600': licencia.aprobado === true,
+                    'bg-red-50 text-red-600': licencia.aprobado === false,
+                    'bg-blue-50 text-blue-600': licencia.aprobado === null
+                  }"
+                >
+                  <span
+                    class="h-1.5 w-1.5 rounded-full"
+                    [ngClass]="{
+                      'green-bg': licencia.aprobado === true,
+                      'red-bg': licencia.aprobado === false,
+                      'blue-bg': licencia.aprobado === null
+                    }"
+                  ></span>
+                  {{ licencia.aprobado === null ? 'Pendiente' : licencia.aprobado ? 'Aprobado' : 'Rechazado' }}
+                </span>
+              </td>
+              
+            <td class="px-6 py-4">
+              {{ licencia.fechaInicio }}
+            </td>
+            <td class="px-6 py-4">
+              {{ licencia.fechaFin }}
+            </td>
+            <td class="px-6 py-4">
+                <button
+                class="text-green-600 hover:text-green-900"
+                (click)="aprobarLicencia(licencia.id)"
+              >
+              <svg width="25px" height="25px" viewBox="0 0 0.75 0.75" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.375 0.125a0.25 0.25 0 1 0 0 0.5 0.25 0.25 0 0 0 0 -0.5M0.063 0.375C0.063 0.202 0.202 0.063 0.375 0.063s0.313 0.14 0.313 0.313 -0.14 0.313 -0.313 0.313S0.063 0.548 0.063 0.375m0.458 -0.101a0.031 0.031 0 0 1 0.003 0.044l-0.167 0.188a0.031 0.031 0 0 1 -0.047 0l-0.083 -0.094a0.031 0.031 0 0 1 0.047 -0.042l0.06 0.067 0.143 -0.161a0.031 0.031 0 0 1 0.044 -0.003" fill="#0D0D0D"/></svg></button>
+              <button
+                class="text-red-600 hover:text-red-900"
+                (click)="rechazarLicencia(licencia.id)"
+              >
+              <svg width="25px" height="25px" viewBox="0 0 1.5 1.5" version="1" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48"><path fill="#D50000" d="M0.75 0.188C0.441 0.188 0.188 0.441 0.188 0.75s0.253 0.563 0.563 0.563 0.563 -0.253 0.563 -0.563S1.059 0.188 0.75 0.188m0 0.125c0.097 0 0.188 0.034 0.263 0.087L0.4 1.012C0.347 0.938 0.313 0.847 0.313 0.75c0 -0.241 0.197 -0.438 0.438 -0.438m0 0.875c-0.097 0 -0.188 -0.034 -0.263 -0.087l0.613 -0.613C1.153 0.563 1.188 0.653 1.188 0.75c0 0.241 -0.197 0.438 -0.438 0.438"/></svg></button>
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="errorMessage" class="mt-4 text-red-600">{{ errorMessage }}</div>
+  </div>
+  

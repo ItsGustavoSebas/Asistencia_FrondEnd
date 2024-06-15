@@ -4,7 +4,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
-
+import { saveAs } from 'file-saver';
 import { routes } from './app.routes';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import mapboxgl from 'mapbox-gl';
@@ -21,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     MatInputModule,
     BrowserModule,
     BrowserAnimationsModule,
-    BrowserAnimationsModule, // Añade esto
+    BrowserAnimationsModule,
     importProvidersFrom(ToastrModule.forRoot({
       timeOut: 3000, // 15 seconds
     closeButton: true,

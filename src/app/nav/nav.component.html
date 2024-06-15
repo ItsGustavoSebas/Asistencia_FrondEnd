@@ -1,18 +1,17 @@
 <nav *ngIf="isAuthenticated">
     <div class="logo">
-        <!-- Aquí puedes colocar tu logo como una imagen o texto -->
-        <img src="assets/imagenes/logo.png" alt="Logo" class="logo-img"> <!-- Ejemplo con imagen -->
-        <!-- <span class="logo-text">UniSys</span> --> <!-- Ejemplo con texto -->
+        <img src="assets/imagenes/logo.png" alt="Logo" class="logo-img"> 
     </div>
     <ul>
         <li *ngIf="isAuthenticated"><a routerLink="/profile">Profile</a></li>
         <li *ngIf="isAdmin"><a routerLink="/users">Usuarios</a></li>
         <li *ngIf="isAdmin"><a routerLink="/roles">Roles</a></li>
-        <li *ngIf="isAuthenticated"><a routerLink="/facultades/">Facultades</a></li>
-        <li *ngIf="isAuthenticated"><a routerLink="/carreras">Carreras</a></li>
-        <li *ngIf="isAuthenticated"><a routerLink="/materias">Materias</a></li>
-        <li *ngIf="isAuthenticated"><a routerLink="/modulos">Modulos</a></li>
-        <li *ngIf="!isAuthenticated"><a routerLink="/login">Login</a></li>
-        <li *ngIf="isAuthenticated"><a routerLink="" (click)="logout()">Logout</a></li>
+        <li *ngIf="isAdmin"><a routerLink="/facultades/">Facultades</a></li>
+        <li *ngIf="isAdmin"><a routerLink="/carreras">Carreras</a></li>
+        <li *ngIf="isAdmin"><a routerLink="/materias">Materias</a></li>
+        <li *ngIf="isAdmin"><a routerLink="/modulos">Modulos</a></li>
+        <li *ngIf="isAdmin"><a routerLink="/asistencias">Asistencias</a></li>
+        <li *ngIf="isAdmin"><a routerLink="/licencias">Licencias</a></li>
+        <li *ngIf="isAdmin"><a routerLink="" (click)="logout()">Logout</a></li>
     </ul>
 </nav>

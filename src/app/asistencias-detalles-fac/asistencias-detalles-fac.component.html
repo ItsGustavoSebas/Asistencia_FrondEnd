@@ -1,0 +1,206 @@
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+      <h2 class="text-xl font-semibold text-gray-800">
+        Lista de asistencias de la {{facultadNombre}}
+      </h2>
+      <div class="md:flex md:items-center md:justify-between py-4">
+        <div class="flex space-x-4">
+          <input
+            type="date"
+            [(ngModel)]="startDate"
+            class="border rounded px-4 py-2"
+          />
+          <input
+            type="date"
+            [(ngModel)]="endDate"
+            class="border rounded px-4 py-2"
+          />
+          <button
+            (click)="loadasistencias()"
+            class="px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Filtrar
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="md:flex md:items-center md:justify-between py-4">
+      <div
+        class="inline-flex overflow-hidden bg-white border divide-x rounded-lg rtl:flex-row-reverse"
+      >
+        <button
+          (click)="
+            filterEstado = 'all'; setActiveButton('all'); loadasistencias()
+          "
+          [class.active]="activeButton === 'all'"
+          class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"
+        >
+          Mostrar Todo
+        </button>
+        <button
+          (click)="
+            filterEstado = 'Presente';
+            setActiveButton('Presente');
+            loadasistencias()
+          "
+          [class.active]="activeButton === 'Presente'"
+          class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"
+        >
+          Presente
+        </button>
+        <button
+          (click)="
+            filterEstado = 'Licencia';
+            setActiveButton('Licencia');
+            loadasistencias()
+          "
+          [class.active]="activeButton === 'Licencia'"
+          class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"
+        >
+          Licencia
+        </button>
+        <button
+          (click)="
+            filterEstado = 'Atraso'; setActiveButton('Atraso'); loadasistencias()
+          "
+          [class.active]="activeButton === 'Atraso'"
+          class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"
+        >
+          Atrasos
+        </button>
+        <button
+          (click)="
+            filterEstado = 'Falta'; setActiveButton('Falta'); loadasistencias()
+          "
+          [class.active]="activeButton === 'Falta'"
+          class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"
+        >
+          Faltas
+        </button>
+      </div>
+      <button
+        (click)="showColumnSelection = !showColumnSelection"
+        class="px-4 py-2 bg-gray-500 text-white rounded"
+      >
+        Seleccionar Columnas
+      </button>
+      <button
+        (click)="downloadAsExcel()"
+        class="px-4 py-2 bg-green-500 text-white rounded"
+      >
+        Descargar Excel
+      </button>
+      <button
+        (click)="downloadAsPDF()"
+        class="px-4 py-2 bg-red-500 text-white rounded"
+      >
+        Descargar PDF
+      </button>
+  
+      <!-- Column Selection Modal -->
+      <div
+        *ngIf="showColumnSelection"
+        class="fixed inset-0 flex items-center justify-center z-50"
+      >
+        <div class="bg-white p-6 rounded shadow-lg">
+          <h3 class="text-lg font-semibold mb-4">Seleccionar Columnas</h3>
+          <div *ngFor="let column of columns">
+            <label>
+              <input type="checkbox" [(ngModel)]="column.selected" />
+              {{ column.displayName }}
+            </label>
+          </div>
+          <button
+            (click)="showColumnSelection = false"
+            class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-md">
+      <table class="w-full bg-white text-sm text-left text-gray-500">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Docente</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Materia</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Grupo</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Estado</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">
+              Hora de Inicio
+            </th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">
+              Hora de Fin
+            </th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Fecha</th>
+            <th class="py-4 font-medium uppercase text-gray-900">Hora Marcada</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr *ngFor="let asistencia of asistencias">
+            <td class="px-6 py-4">
+                {{ asistencia.nombre }}
+              </td>
+            <td class="px-6 py-4">
+              {{ asistencia.materiaSigla }}
+            </td>
+            <td class="px-6 py-4">
+              {{ asistencia.grupoName }}
+            </td>
+            <td class="px-6 py-4">
+              <span
+                class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold"
+                [ngClass]="{
+                  'bg-green-50 text-green-600': asistencia.estado === 'Presente',
+                  'bg-orange-50 text-orange-600': asistencia.estado === 'Atraso',
+                  'bg-blue-50 text-blue-600': asistencia.estado === 'Licencia',
+                  'bg-red-50 text-red-600': asistencia.estado === 'Falta'
+                }"
+              >
+                <span
+                  class="h-1.5 w-1.5 rounded-full"
+                  [ngClass]="{
+                    'green-bg': asistencia.estado === 'Presente',
+                    'orange-bg': asistencia.estado === 'Atraso',
+                    'blue-bg': asistencia.estado === 'Licencia',
+                    'red-bg': asistencia.estado === 'Falta'
+                  }"
+                ></span>
+                {{ asistencia.estado }}
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              {{ asistencia.horaInicio }}
+            </td>
+            <td class="px-6 py-4">
+              {{ asistencia.horaFin }}
+            </td>
+            <td class="px-6 py-4">
+              {{ asistencia.fecha | date : "yyyy-MM-dd" }}
+            </td>
+            <td
+              class="px-6 py-4"
+              [ngClass]="{
+                'green-bg': asistencia.estado === 'Presente',
+                'orange-bg': asistencia.estado === 'Atraso',
+                'blue-bg': asistencia.estado === 'Licencia',
+                'red-bg': asistencia.estado === 'Falta'
+              }"
+            >
+              {{
+                asistencia.estado === "Licencia" || asistencia.estado === "Falta"
+                  ? ""
+                  : (asistencia.hora | date : "HH:mm:ss")
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="errorMessage" class="mt-4 text-red-600">{{ errorMessage }}</div>
+  </div>
+  

@@ -47,6 +47,10 @@ export class CarreraslistComponent {
     }
   }
 
+  navigateToAsistencias(facultadId: string) {
+    this.router.navigate(['carreras/asistencias/reporte', facultadId]);
+  }
+
   async loadcarreras() {
     try {
       const token: any = localStorage.getItem('token');

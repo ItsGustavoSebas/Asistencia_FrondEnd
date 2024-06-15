@@ -271,6 +271,20 @@ export class UsersService {
   }
 
   async getAllFacultades(token: string): Promise<any> {
+    const url = `${this.BASE_URL}/adminuser/facultades`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las facultades: ${error}`);
+    }
+  }
+
+  async getAllFacultades2(token: string): Promise<any> {
     const url = `${this.BASE_URL}/adminuser/facultades/f`;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -281,6 +295,73 @@ export class UsersService {
       return response;
     } catch (error) {
       throw new Error(`Error al obtener las facultades: ${error}`);
+    }
+  }
+
+  async getAllasistencias(token: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/programacion/asistencias/estados`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
+    }
+  }
+
+  async getAllasistenciasName(token: string, name: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/programacion/asistencias/name/estados`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+    url += `?name=${name}`;
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
+    }
+  }
+
+  async getAllAsistenciasDocente(docenteId: string, token: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/programacion/asistencias/web/${docenteId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
+    }
+  }
+
+  async getAllAsistenciasDocenteEstado(docenteId: string, estado: string, token: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/programacion/asistencias/${docenteId}/${estado}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
     }
   }
 
@@ -546,6 +627,199 @@ export class UsersService {
       throw error;
     }
   }
+
+  async getAllasistenciasFac(token: string, facultadId: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/facultades/asistencias/estados/${facultadId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
+    }
+  }
+
+  async getAllasistenciasNameFac(token: string, facultadId: string, name: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/facultades/asistencias/name/${facultadId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+    url += `?name=${name}`;
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
+    }
+  }
+
+    async getAllAsistenciasfacultad(facultadId: string, token: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/facultades/asistencias/web/${facultadId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
+    }
+  }
+
+  async getAllAsistenciasfacultadEstado(facultadId: string, estado: string, token: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/facultades/asistencias/${facultadId}/${estado}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
+    }
+  }
+
+  async getAllAsistenciascarrera(carreraId: string, token: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/carreras/asistencias/web/${carreraId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
+    }
+  }
+
+  async getAllAsistenciascarreraEstado(carreraId: string, estado: string, token: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/carreras/asistencias/${carreraId}/${estado}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
+    }
+  }
+
+  async getAllasistenciasCarr(token: string, carreraId: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/carreras/asistencias/estados/${carreraId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+  
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
+    }
+  }
+
+  async getAllasistenciasNameCarr(token: string, carreraId: string, name: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/adminuser/carreras/asistencias/name/${carreraId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+    url += `?name=${name}`;
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las asistencias: ${error}`);
+    }
+  }
+
+  async getAllLicencias(token: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/admin/licencias`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las licencias: ${error}`);
+    }
+  }
+
+  async getAllLicenciasEstado(estado: string, token: string, startDate?: string, endDate?: string): Promise<any> {
+    let url = `${this.BASE_URL}/admin/licencias/${estado}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    if (startDate && endDate) {
+      url += `/${startDate}/${endDate}`;
+    }
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error(`Error al obtener las licencias: ${error}`);
+    }
+  }
+
+  async aprobarLicencia(licenciaId: string, token:string): Promise<any>{
+    const url = `${this.BASE_URL}/admin/licencias/aprobar/${licenciaId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    try{
+      const response = await this.http.post<any>(url, {}, {headers}).toPromise();
+      return response;
+    } catch(error){
+      throw error;
+    }
+}
+
+async rechazarLicencia(licenciaId: string, token:string): Promise<any>{
+    const url = `${this.BASE_URL}/admin/licencias/rechazar/${licenciaId}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    try{
+      const response = await this.http.post<any>(url, {}, {headers}).toPromise();
+      return response;
+    } catch(error){
+      throw error;
+    }
+}
+
 
   /***AUTHENTICATION METHODS */
   logOut(): void {

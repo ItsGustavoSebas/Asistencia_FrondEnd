@@ -1,0 +1,27 @@
+.green-bg {
+    background-color: green;
+    color: white;
+  }
+  
+  .orange-bg {
+    background-color: orange;
+    color: white;
+  }
+  
+  .blue-bg {
+    background-color: blue;
+    color: white;
+  }
+  
+  .red-bg {
+    background-color: red;
+    color: white;
+  }
+  button {
+    &.active {
+      --tw-bg-opacity: 1;
+    background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+      --tw-text-opacity: 1;
+      color: rgb(75 85 99 / var(--tw-text-opacity));
+    }
+  }

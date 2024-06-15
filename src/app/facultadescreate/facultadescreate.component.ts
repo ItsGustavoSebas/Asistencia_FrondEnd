@@ -48,7 +48,7 @@ export class FacultadescreateComponent {
       console.log('Registration Response:', response);
 
       if (response.statusCode === 200) {
-        this.router.navigate(['/facultades/f']);
+        this.router.navigate(['/facultades']);
       } else {
         this.showError(response.message);
       }

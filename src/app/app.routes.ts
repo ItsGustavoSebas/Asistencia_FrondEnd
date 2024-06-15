@@ -21,6 +21,13 @@ import { MateriascreateComponent } from './materiascreate/materiascreate.compone
 import { ModuloslistComponent } from './moduloslist/moduloslist.component';
 import { ModulosupdateComponent } from './modulosupdate/modulosupdate.component';
 import { ModuloscreateComponent } from './moduloscreate/moduloscreate.component';
+import { AsistenciasreporteComponent } from './asistenciasreporte/asistenciasreporte.component';
+import { AsistenciasDocenteComponent } from './asistencias-docente/asistencias-docente.component';
+import { AsistenciasReporteFacComponent } from './asistencias-reporte-fac/asistencias-reporte-fac.component';
+import { AsistenciasDetallesFacComponent } from './asistencias-detalles-fac/asistencias-detalles-fac.component';
+import { AsistenciasReporteCarrComponent } from './asistencias-reporte-carr/asistencias-reporte-carr.component';
+import { AsistenciasDetallesCarrComponent } from './asistencias-detalles-carr/asistencias-detalles-carr.component';
+import { LicenciaslistComponent } from './licenciaslist/licenciaslist.component';
 
 
 
@@ -45,6 +52,13 @@ export const routes: Routes = [
     { path: 'modulos', component: ModuloslistComponent, canActivate: [usersGuard] },
     { path: 'modulos/update/:id', component: ModulosupdateComponent, canActivate: [adminGuard] },
     { path: 'modulos/create', component: ModuloscreateComponent, canActivate: [adminGuard] },
+    { path: 'asistencias', component: AsistenciasreporteComponent, canActivate: [adminGuard] },
+    { path: 'asistencias/docente/:id', component: AsistenciasDocenteComponent, canActivate: [adminGuard] },
+    { path: 'facultades/asistencias/reporte/:id', component: AsistenciasReporteFacComponent, canActivate: [adminGuard] },
+    { path: 'facultades/asistencias/detalles/:id', component: AsistenciasDetallesFacComponent, canActivate: [adminGuard] },
+    { path: 'carreras/asistencias/reporte/:id', component: AsistenciasReporteCarrComponent, canActivate: [adminGuard] },
+    { path: 'carreras/asistencias/detalles/:id', component: AsistenciasDetallesCarrComponent, canActivate: [adminGuard] },
+    { path: 'licencias', component: LicenciaslistComponent, canActivate: [adminGuard] },
     { path: '', component: WelcomeComponent },
     { path: '**', redirectTo: '', pathMatch: 'full' } 
 ];
