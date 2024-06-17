@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from "rxjs";
   providedIn: "root",
 })
 export class UsersService {
-  private BASE_URL = "http://localhost:8080";
+  private BASE_URL = "https://heartfelt-quietude-production-46c6.up.railway.app";
 
   constructor(private http: HttpClient) {}
   private authStatus = new BehaviorSubject<boolean>(this.isAuthenticated());
