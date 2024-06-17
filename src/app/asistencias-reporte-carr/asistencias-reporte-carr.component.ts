@@ -22,6 +22,7 @@ export class AsistenciasReporteCarrComponent {
   startDate: string = '';
   carreraId: any;
   endDate: string = '';
+  carreraNombre: string = ''; 
   showColumnSelection = false;
   columns = [
     { name: 'nombre', displayName: 'Docente', selected: true },
@@ -56,6 +57,8 @@ export class AsistenciasReporteCarrComponent {
     try {
       this.carreraId = this.route.snapshot.paramMap.get('id');
       const token: any = localStorage.getItem('token');
+      let carrera = await this.userService.getCarrerasById(this.carreraId, token);
+      this.carreraNombre = carrera.name;
       let response;
       if (this.searchName) {
         response = await this.userService.getAllasistenciasNameFac(token, this.carreraId, this.searchName, this.startDate, this.endDate);

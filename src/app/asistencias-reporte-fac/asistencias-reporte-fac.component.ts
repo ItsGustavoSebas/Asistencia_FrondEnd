@@ -21,6 +21,7 @@ export class AsistenciasReporteFacComponent {
   searchName: string = '';
   startDate: string = '';
   facultadId: any;
+  facultadNombre: any;
   endDate: string = '';
   showColumnSelection = false;
   columns = [
@@ -56,6 +57,8 @@ export class AsistenciasReporteFacComponent {
     try {
       this.facultadId = this.route.snapshot.paramMap.get('id');
       const token: any = localStorage.getItem('token');
+      let facultad = await this.userService.getfacultadsById(this.facultadId, token);
+      this.facultadNombre = facultad.name;
       let response;
       if (this.searchName) {
         response = await this.userService.getAllasistenciasNameFac(token, this.facultadId, this.searchName, this.startDate, this.endDate);

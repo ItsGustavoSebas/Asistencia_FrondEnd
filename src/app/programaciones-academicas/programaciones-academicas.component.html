@@ -1,0 +1,74 @@
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+      <h2 class="text-xl font-semibold text-gray-800">Lista de Programaciones</h2>
+      <button
+        (click)="navigateToCrear(gestionId)"
+        class="bg-red-500 text-white px-4 py-2 rounded-lg"
+      >
+        CREAR PROGRAMACIÓN
+      </button>
+    </div>
+  
+    <div class="flex space-x-4 mb-4">
+      <button (click)="showColumnSelection = !showColumnSelection" class="px-4 py-2 bg-gray-500 text-white rounded">Seleccionar Columnas</button>
+      <button (click)="downloadAsExcel()" class="px-4 py-2 bg-green-500 text-white rounded">Descargar Excel</button>
+      <button (click)="downloadAsPDF()" class="px-4 py-2 bg-red-500 text-white rounded">Descargar PDF</button>
+    </div>
+  
+    <div *ngIf="showColumnSelection" class="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
+      <div class="bg-white p-6 rounded shadow-lg">
+        <h3 class="text-lg font-semibold mb-4">Seleccionar Columnas</h3>
+        <div *ngFor="let column of columns">
+          <label>
+            <input type="checkbox" [(ngModel)]="column.selected"> {{ column.displayName }}
+          </label>
+        </div>
+        <button (click)="showColumnSelection = false" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Aceptar</button>
+      </div>
+    </div>
+  
+    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-md">
+      <table class="w-full bg-white text-sm text-left text-gray-500">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Sigla</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Grupo</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Materia</th>
+            <th class="px-2 py-4 font-medium uppercase text-gray-900">N</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Docente</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Dia</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Horario</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Aula</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Dia</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Horario</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Aula</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Dia</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Horario</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Aula</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Dia</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Horario</th>
+            <th class="px-6 py-4 font-medium uppercase text-gray-900">Aula</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr *ngFor="let programacion of programacions">
+            <td class="px-6 py-4">{{ programacion.siglas }}</td>
+            <td class="px-6 py-4">{{ programacion.nombre }}</td>
+            <td class="px-6 py-4">{{ programacion.materia }}</td>
+            <td class="px-2 py-4">{{ programacion.semestre }}</td>
+            <td class="px-6 py-4">{{ programacion.docente }}</td>
+            <ng-container *ngFor="let horario of programacion.diaHorarioDTOS">
+              <td class="px-6 py-4">{{ horario.dia }}</td>
+              <td class="px-6 py-4">
+                {{ horario.horaInicio }} - {{ horario.horaFin }}
+              </td>
+              <td class="px-6 py-4">{{ horario.modulo }} - {{ horario.aula }}</td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="errorMessage" class="mt-4 text-red-600">{{ errorMessage }}</div>
+  </div>
+  

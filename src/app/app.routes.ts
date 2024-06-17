@@ -28,6 +28,10 @@ import { AsistenciasDetallesFacComponent } from './asistencias-detalles-fac/asis
 import { AsistenciasReporteCarrComponent } from './asistencias-reporte-carr/asistencias-reporte-carr.component';
 import { AsistenciasDetallesCarrComponent } from './asistencias-detalles-carr/asistencias-detalles-carr.component';
 import { LicenciaslistComponent } from './licenciaslist/licenciaslist.component';
+import { GestionesListComponent } from './gestiones-list/gestiones-list.component';
+import { CalendarioComponent } from './calendario/calendario.component';
+import { ProgramacionesAcademicasComponent } from './programaciones-academicas/programaciones-academicas.component';
+import { CrearProgramacionComponent } from './crear-programacion/crear-programacion.component';
 
 
 
@@ -59,6 +63,10 @@ export const routes: Routes = [
     { path: 'carreras/asistencias/reporte/:id', component: AsistenciasReporteCarrComponent, canActivate: [adminGuard] },
     { path: 'carreras/asistencias/detalles/:id', component: AsistenciasDetallesCarrComponent, canActivate: [adminGuard] },
     { path: 'licencias', component: LicenciaslistComponent, canActivate: [adminGuard] },
+    { path: 'gestiones/:id', component: GestionesListComponent, canActivate: [adminGuard] },
+    { path: 'fechas/:id', component: CalendarioComponent, canActivate: [adminGuard] },
+    { path: 'programaciones/:id', component: ProgramacionesAcademicasComponent, canActivate: [adminGuard] },
+    { path: 'programaciones/crear/:id', component: CrearProgramacionComponent, canActivate: [adminGuard] },
     { path: '', component: WelcomeComponent },
     { path: '**', redirectTo: '', pathMatch: 'full' } 
 ];

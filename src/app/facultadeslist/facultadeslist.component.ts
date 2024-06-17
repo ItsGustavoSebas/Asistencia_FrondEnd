@@ -52,6 +52,10 @@ export class FacultadeslistComponent {
     this.router.navigate(['facultades/asistencias/reporte', facultadId]);
   }
 
+  navigateToGestiones(facultadId: string) {
+    this.router.navigate(['gestiones', facultadId]);
+  }
+
   
 
   showError(message: string) {

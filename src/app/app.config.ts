@@ -10,7 +10,8 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import mapboxgl from 'mapbox-gl';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
@@ -22,8 +23,10 @@ export const appConfig: ApplicationConfig = {
     BrowserModule,
     BrowserAnimationsModule,
     BrowserAnimationsModule,
+    FullCalendarModule,
+    NgbModule,
     importProvidersFrom(ToastrModule.forRoot({
-      timeOut: 3000, // 15 seconds
+      timeOut: 3000, 
     closeButton: true,
     progressBar: true,
     })),

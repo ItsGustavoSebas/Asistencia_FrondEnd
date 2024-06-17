@@ -19,6 +19,7 @@ export class AsistenciasDocenteComponent {
   asistencias: any[] = [];
   errorMessage: string = '';
   searchName: string = '';
+  usuarioNombre: any;
   docenteId: any;
   filterEstado: string = 'all';
   activeButton: string = 'all';
@@ -103,6 +104,8 @@ export class AsistenciasDocenteComponent {
     try {
       this.docenteId = this.route.snapshot.paramMap.get('id');
       const token: any = localStorage.getItem('token');
+      let usuario = await this.userService.getUsersById(this.docenteId, token);
+      this.usuarioNombre = usuario.ourUsers.name;
       let response;
       
       if (this.filterEstado === 'all') {
