@@ -1,82 +1,81 @@
 <div class="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
     <div class="container max-w-screen-lg mx-auto">
-        <div>
-            <h2 class="font-semibold text-xl text-gray-600">Registrar Programacion</h2>
-            <form (ngSubmit)="handleSubmit()">
-                <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-                        <div class="text-gray-600">
-                            <p class="font-medium text-lg">Detalles de la Programacion</p>
-                            <p>Por favor llena todos los campos</p>
-                        </div>
-                        <div class="lg:col-span-2">
-                            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-1">
-                                <div>
-                                    <label for="name">Grupo</label>
-                                    <input type="text" name="name" id="name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" [(ngModel)]="formData.nombre" required />
-                                </div>
-                                <div>
-                                    <label for="docente">Docente</label>
-                                    <select name="docente" [(ngModel)]="formData.docenteId" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required>
-                                        <option value="">Seleccionar docente</option>
-                                        <option *ngFor="let docente of docentes" [value]="docente.id">{{ docente.name }}</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="carrera">Carrera</label>
-                                    <select name="carrera" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required (change)="onCarreraChange($event)">
-                                      <option value="">Seleccionar carrera</option>
-                                      <option *ngFor="let carrera of carreras" [value]="carrera.id">{{ carrera.name }}</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="materia">Materia</label>
-                                    <select name="materia" [(ngModel)]="formData.materia_carreraId" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required>
-                                        <option value="">Seleccionar materia</option>
-                                        <option *ngFor="let materia of materias" [value]="materia.id">{{ materia.materia.name }}</option>
-                                    </select>
-                                </div>
-                                <label for="dia_horario">Horarios</label>
-                                <div *ngFor="let diaHorario of formData.diaHorarioDTOS; let i = index" class="grid grid-cols-5 gap-4">
-                                    
-                                    <div class="col-span-1">
-                                        <label for="dia">Día</label>
-                                        <select name="dia" [(ngModel)]="diaHorario.dia" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required>
-                                            <option value="">Seleccionar día</option>
-                                            <option *ngFor="let dia of dias" [value]="dia">{{ dia }}</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-span-1">
-                                        <label for="horaInicio">Hora Inicio</label>
-                                        <input type="time" name="horaInicio" [(ngModel)]="diaHorario.horaInicio" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required />
-                                    </div>
-                                    <div class="col-span-1">
-                                        <label for="horaFin">Hora Fin</label>
-                                        <input type="time" name="horaFin" [(ngModel)]="diaHorario.horaFin" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required />
-                                    </div>
-                                    <div class="col-span-1">
-                                        <label for="modulo">Modulo</label>
-                                        <select name="modulo" [(ngModel)]="diaHorario.moduloId" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required>
-                                            <option value="">Seleccionar modulo</option>
-                                            <option *ngFor="let modulo of modulos" [value]="modulo.id">{{ modulo.name }}</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-span-1">
-                                        <label for="aula">Aula</label>
-                                        <input type="text" name="aula" [(ngModel)]="diaHorario.aula" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required />
-                                    </div>
-                                    <div class="col-span-5">
-                                        <button type="button" (click)="removeDiaHorario(i)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-2">Eliminar</button>
-                                    </div>
-                                </div>
-                                <button type="button" (click)="addDiaHorario()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mt-4">Agregar Día y Horario</button>
-                            </div>
-                        </div>
-                        <div class="text-red-500" *ngIf="errorMessage">{{ errorMessage }}</div>
-                    </div>
+      <div>
+        <h2 class="font-semibold text-xl text-gray-600">Registrar Programacion</h2>
+        <form (ngSubmit)="handleSubmit()">
+          <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+              <div class="text-gray-600">
+                <p class="font-medium text-lg">Detalles de la Programacion</p>
+                <p>Por favor llena todos los campos</p>
+              </div>
+              <div class="lg:col-span-2">
+                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-1">
+                  <div>
+                    <label for="name">Grupo</label>
+                    <input type="text" name="name" id="name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" [(ngModel)]="formData.nombre" required />
+                  </div>
+                  <div>
+                    <label for="docente">Docente</label>
+                    <select name="docente" [(ngModel)]="formData.docenteId" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required>
+                      <option value="">Seleccionar docente</option>
+                      <option *ngFor="let docente of docentes" [value]="docente.id">{{ docente.name }}</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="carrera">Carrera</label>
+                    <select name="carrera" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required (change)="onCarreraChange($event)">
+                      <option value="">Seleccionar carrera</option>
+                      <option *ngFor="let carrera of carreras" [value]="carrera.id">{{ carrera.name }}</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="materia">Materia</label>
+                    <select name="materia" [(ngModel)]="formData.materia_carreraId" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required>
+                      <option value="">Seleccionar materia</option>
+                      <option *ngFor="let materia of materias" [value]="materia.id">{{ materia.materia.name }}</option>
+                    </select>
+                  </div>
+                  <label for="dia_horario">Horarios</label>
+                  <div *ngFor="let diaHorario of formData.diaHorarioDTOS; let i = index" class="grid grid-cols-5 gap-4">
+                    <div class="col-span-1">
+                      <label for="dia">Día</label>
+                      <select name="dia" [(ngModel)]="diaHorario.dia" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required>
+                        <option value="">Seleccionar día</option>
+                        <option *ngFor="let dia of dias"                       [value]="dia">{{ dia }}</option>
+                    </select>
+                  </div>
+                  <div class="col-span-1">
+                    <label for="horaInicio">Hora Inicio</label>
+                    <input type="time" name="horaInicio" [(ngModel)]="diaHorario.horaInicio" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required />
+                  </div>
+                  <div class="col-span-1">
+                    <label for="horaFin">Hora Fin</label>
+                    <input type="time" name="horaFin" [(ngModel)]="diaHorario.horaFin" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required />
+                  </div>
+                  <div class="col-span-1">
+                    <label for="modulo">Modulo</label>
+                    <select name="modulo" [(ngModel)]="diaHorario.moduloId" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required>
+                      <option value="">Seleccionar modulo</option>
+                      <option *ngFor="let modulo of modulos" [value]="modulo.id">{{ modulo.name }}</option>
+                    </select>
+                  </div>
+                  <div class="col-span-1">
+                    <label for="aula">Aula</label>
+                    <input type="text" name="aula" [(ngModel)]="diaHorario.aula" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required />
+                  </div>
+                  <div class="col-span-5">
+                    <button type="button" (click)="removeDiaHorario(i)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-2">Eliminar</button>
+                  </div>
                 </div>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Registrar</button>
-            </form>
+                <button type="button" (click)="addDiaHorario()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mt-4">Agregar Día y Horario</button>
+              </div>
+            </div>
+            <div class="text-red-500" *ngIf="errorMessage">{{ errorMessage }}</div>
+          </div>
         </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Registrar</button>
+      </form>
     </div>
+  </div>
 </div>

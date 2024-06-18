@@ -12,6 +12,6 @@
         <li *ngIf="isAdmin"><a routerLink="/modulos">Modulos</a></li>
         <li *ngIf="isAdmin"><a routerLink="/asistencias">Asistencias</a></li>
         <li *ngIf="isAdmin"><a routerLink="/licencias">Licencias</a></li>
-        <li *ngIf="isAdmin"><a routerLink="" (click)="logout()">Logout</a></li>
+        <li *ngIf="isAuthenticated"><a routerLink="" (click)="logout()">Logout</a></li>
     </ul>
 </nav>

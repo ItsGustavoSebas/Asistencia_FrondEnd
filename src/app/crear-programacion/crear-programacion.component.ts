@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { UsersService } from '../users.service';
 
 interface Dia_Horario {
+  id: number; // Agregamos un identificador único
   moduloId: any;
   dia: string;
-  horaInicio: any,
-  horaFin: any,
-  aula: any
+  horaInicio: any;
+  horaFin: any;
+  aula: any;
 }
 
 interface ProgramacionData {
@@ -33,7 +34,7 @@ export class CrearProgramacionComponent implements OnInit {
     materia_carreraId: '',
     docenteId: '',
     facultad_gestionId: '',
-    diaHorarioDTOS: [{ moduloId: '', dia: '', horaInicio: '', horaFin: '', aula: '' }]
+    diaHorarioDTOS: [{ id: 1, moduloId: '', dia: '', horaInicio: '', horaFin: '', aula: '' }] // Asignamos un ID inicial
   };
   errorMessage: string = '';
   carreras: any[] = [];
@@ -42,7 +43,7 @@ export class CrearProgramacionComponent implements OnInit {
   modulos: any[] = [];
   facultadGestionId: any;
   facultadId: any;
-  dias: string[] = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+  dias: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
   constructor(
     private readonly userService: UsersService,
@@ -97,7 +98,8 @@ export class CrearProgramacionComponent implements OnInit {
   }
 
   addDiaHorario() {
-    this.formData.diaHorarioDTOS.push({ moduloId: '', dia: '', horaInicio: '', horaFin: '', aula: '' });
+    const nextId = this.formData.diaHorarioDTOS.length + 1; // Generamos el siguiente ID
+    this.formData.diaHorarioDTOS.push({ id: nextId, moduloId: '', dia: '', horaInicio: '', horaFin: '', aula: '' });
   }
 
   removeDiaHorario(index: number) {
@@ -105,14 +107,13 @@ export class CrearProgramacionComponent implements OnInit {
   }
 
   async handleSubmit() {
-    
     if (!this.formData.nombre || !this.formData.materia_carreraId || !this.formData.docenteId) {
       this.showError('Por favor completa todos los campos.');
       return;
     }
 
     this.formData.facultad_gestionId = this.facultadGestionId;
-    console.log("semestre", this.formData);
+
     const confirmRegistration = confirm('¿Estás seguro que deseas registrar esta carrera?');
     if (!confirmRegistration) return;
 
@@ -121,14 +122,11 @@ export class CrearProgramacionComponent implements OnInit {
       if (!token) {
         throw new Error('No token found');
       }
-      console.log("semestre", this.formData);
 
       const response = await this.userService.createProgramacion(this.formData, token);
-      console.log('Registration Response:', response);
-
       if (response.statusCode === 200) {
         localStorage.setItem('programacionCreated', 'true');
-          this.router.navigate(['/programaciones', this.facultadGestionId]);
+        this.router.navigate(['/programaciones', this.facultadGestionId]);
       } else {
         this.showError(response.message);
       }
@@ -143,5 +141,9 @@ export class CrearProgramacionComponent implements OnInit {
       this.errorMessage = '';
     }, 3000);
   }
-}
 
+  // Función trackBy para mejorar el rendimiento del *ngFor
+  trackByFn(index: number, item: Dia_Horario) {
+    return item.id; // Devuelve el ID como identificador único
+  }
+}
